@@ -2,7 +2,6 @@ from pyspark import SparkContext
 import sys
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
-from newspaper import Article
 import string
 from math import log10
 

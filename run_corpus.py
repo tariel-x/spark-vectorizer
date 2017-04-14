@@ -1,6 +1,11 @@
+import findspark
+# findspark.init()
+findspark.init("/home/nikita/bin/spark-2.1.0-bin-hadoop2.7")
+
 import sys
 from corpus_vectorizer import CorpusVectorizer
 from kmeans import KMeans
+from pyspark import SparkContext
 
 def process_articles(input_file, num_partitions=8):
     sc = SparkContext()

@@ -1,3 +1,7 @@
+import findspark
+# findspark.init()
+findspark.init("/home/nikita/bin/spark-2.1.0-bin-hadoop2.7")
+
 from pyspark import SparkContext
 import sys
 
@@ -14,7 +18,7 @@ class KMeans(object):
         self._valid = False
         self.max_updates = max_updates
 
-    def update(vector_rdd):
+    def update(self, vector_rdd):
         self._valid = False
         self.vector_rdd = vector_rdd
         return self.centroids
@@ -30,12 +34,12 @@ class KMeans(object):
         # random initial centroids
         centroids = self.vector_rdd.takeSample(True, self.num_centroids)
         # find optimal centroids
-        while old_centroids != centroids and n < max_updates:
+        while old_centroids != centroids and n < self.max_updates:
             old_centroids = centroids
             # find cluster of closest vectors for each centroid
-            grouped_clusters = self.group_by_centroid(self.vector_rdd, centroids)
+            self.grouped_clusters = self.group_by_centroid(self.vector_rdd, centroids)
             # calculate new centroid for each cluster
-            centroids = find_centroids(self.grouped_clusters)
+            centroids = self.find_centroids(self.grouped_clusters)
             n += 1
 
         self.centroids_rdd = centroids
